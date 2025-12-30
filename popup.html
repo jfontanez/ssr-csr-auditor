@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSR/CSR Auditor</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🔍 SSR/CSR Auditor</h1>
+      <p class="subtitle">Analyze rendering strategy</p>
+    </header>
+
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Analyzing page...</p>
+    </div>
+
+    <div id="content" class="content hidden">
+      <!-- Summary Section -->
+      <section class="summary">
+        <div class="stat-card ssr">
+          <div class="stat-header">
+            <span class="icon">🟢</span>
+            <span class="label">Server-Side</span>
+          </div>
+          <div class="percentage" id="ssrPercentage">0%</div>
+          <div class="count" id="ssrCount">0 elements</div>
+        </div>
+
+        <div class="stat-card csr">
+          <div class="stat-header">
+            <span class="icon">🔵</span>
+            <span class="label">Client-Side</span>
+          </div>
+          <div class="percentage" id="csrPercentage">0%</div>
+          <div class="count" id="csrCount">0 elements</div>
+        </div>
+      </section>
+
+      <!-- Chart Section -->
+      <section class="chart-section">
+        <div class="chart-container">
+          <div class="chart-bar">
+            <div class="chart-fill ssr-fill" id="ssrBar"></div>
+            <div class="chart-fill csr-fill" id="csrBar"></div>
+          </div>
+          <div class="chart-labels">
+            <span class="chart-label">SSR</span>
+            <span class="chart-label">CSR</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Details Section -->
+      <section class="details">
+        <div class="detail-row">
+          <span class="detail-label">Total Elements:</span>
+          <span class="detail-value" id="totalElements">0</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Initial HTML Size:</span>
+          <span class="detail-value" id="htmlSize">0 KB</span>
+        </div>
+        <div class="detail-row" id="frameworkRow" style="display: none;">
+          <span class="detail-label">Detected:</span>
+          <span class="detail-value" id="frameworks"></span>
+        </div>
+      </section>
+
+      <!-- Performance Metrics -->
+      <section class="performance" id="performanceSection" style="display: none;">
+        <h3>Performance Metrics</h3>
+        <div class="detail-row">
+          <span class="detail-label">DOM Interactive:</span>
+          <span class="detail-value" id="domInteractive">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">DOM Content Loaded:</span>
+          <span class="detail-value" id="domContentLoaded">-</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Load Complete:</span>
+          <span class="detail-value" id="loadComplete">-</span>
+        </div>
+      </section>
+
+      <!-- Actions -->
+      <section class="actions">
+        <button id="highlightBtn" class="btn btn-primary">
+          <span id="highlightText">Enable Highlighting</span>
+        </button>
+        <button id="refreshBtn" class="btn btn-secondary">
+          <span>Refresh Analysis</span>
+        </button>
+      </section>
+
+      <!-- Export Section -->
+      <section class="export-section">
+        <button id="downloadReportBtn" class="btn btn-export">
+          <span>📥 Download Summary Report</span>
+        </button>
+      </section>
+
+      <!-- Info Section -->
+      <section class="info">
+        <details>
+          <summary>How does this work?</summary>
+          <div class="info-content">
+            <p><strong>SSR (Server-Side Rendering):</strong> Content present in the initial HTML response from the server. Shown in green.</p>
+            <p><strong>CSR (Client-Side Rendering):</strong> Content added dynamically by JavaScript after page load. Shown in blue.</p>
+            <p>This tool helps identify rendering strategies for performance optimization and SEO analysis.</p>
+            <p style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #f1f5f9; font-size: 11px; text-align: center; color: #94a3b8;">Developed by Jose Fontanez</p>
+          </div>
+        </details>
+      </section>
+    </div>
+
+    <div id="error" class="error hidden">
+      <p>Unable to analyze this page. Please try refreshing.</p>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
